@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Configurations>Debug;Release;Deploy</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Flux.Abstraction\Flux.Abstraction.csproj" />
+    <ProjectReference Include="..\Flux.Ecs\Flux.Ecs.csproj" />
+    <ProjectReference Include="..\Flux.EntityBehavior\Flux.EntityBehavior.csproj" />
+    <ProjectReference Include="..\Flux.ImGuiFlux\Flux.ImGuiFlux.csproj" />
+    <ProjectReference Include="..\Flux.MathAddon\Flux.MathAddon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Drawer\" />
+  </ItemGroup>
+
+</Project>

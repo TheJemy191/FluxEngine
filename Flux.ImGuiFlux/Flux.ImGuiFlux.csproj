@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Deploy</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DefaultEcs" Version="0.17.2" />
+    <PackageReference Include="DefaultEcs.Analyzer" Version="0.17.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Silk.NET.OpenGL.Extensions.ImGui" Version="2.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Flux.Abstraction\Flux.Abstraction.csproj" />
+    <ProjectReference Include="..\Flux.Ecs\Flux.Ecs.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Configurations>Debug;Release;Deploy</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AsyncVoidAnalyzer" Version="0.2.0" />
+		<PackageReference Include="DefaultEcs" Version="0.17.2" />
+		<PackageReference Include="DefaultEcs.Analyzer" Version="0.17.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Meziantou.Analyzer" Version="2.0.19">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.5.22">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Roslynator.Analyzers" Version="4.2.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Silk.NET.Input.Common" Version="2.16.0" />
+		<PackageReference Include="Silk.NET.Input.Extensions" Version="2.16.0" />
+		<PackageReference Include="Silk.NET.Input.Glfw" Version="2.16.0" />
+		<PackageReference Include="Silk.NET.Windowing" Version="2.16.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Flux.Abstraction\Flux.Abstraction.csproj" />
+	  <ProjectReference Include="..\Flux.Core\Flux.Core.csproj" />
+	  <ProjectReference Include="..\Flux.Ecs\Flux.Ecs.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Flux.Core.Path">
+			<Alias>Path</Alias>
+		</Using>
+	</ItemGroup>
+
+</Project>
