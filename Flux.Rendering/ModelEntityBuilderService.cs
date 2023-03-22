@@ -2,6 +2,7 @@
 using DefaultEcs;
 using Flux.Ecs;
 using Flux.MathAddon;
+using Flux.Rendering.Resources;
 
 namespace Flux.Rendering;
 
@@ -108,7 +109,7 @@ public class ModelEntityBuilderService
     {
         var shader = resourcesService.LoadShader(vertex, fragment);
 
-        var textures = new List<(string uniformName, Texture texture)>();
+        var textures = new List<(string uniformName, ResourceHandle<Texture> texture)>();
 
         foreach (var texture in this.textures)
         {

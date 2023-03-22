@@ -1,10 +1,11 @@
-﻿using Silk.NET.OpenGL;
+﻿using System.Reflection.Metadata;
+using Silk.NET.OpenGL;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace Flux.Rendering.Resources;
 
-public class TexturesManager : ResourcesManager<NewTexture>
+public class TexturesManager : ResourcesManager<Texture>
 {
     readonly GL gl;
 
@@ -13,9 +14,9 @@ public class TexturesManager : ResourcesManager<NewTexture>
         this.gl = gl;
     }
 
-    public unsafe override NewTexture Load(Path path)
+    protected unsafe override Texture Load(Path path)
     {
-        var texture = new NewTexture(gl);
+        var texture = new Texture(gl);
         texture.Bind();
 
         using var image = Image.Load<Rgba32>(ToAssetPath(path));
@@ -37,6 +38,26 @@ public class TexturesManager : ResourcesManager<NewTexture>
 
         return texture;
     }
+
+    protected override void Unload(Texture resource)
+    {
+        resource.Delete();
+    }
+
+    unsafe Texture Create(GL gl, Span<byte> data, uint width, uint height)
+    {
+        var texture = new Texture(gl);
+        texture.Bind();
+
+        fixed (void* d = &data[0])
+        {
+            this.gl.TexImage2D(TextureTarget.Texture2D, 0, (int)InternalFormat.Rgba, width, height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, d);
+            SetParameters();
+        }
+
+        return texture;
+    }
+
     void SetParameters()
     {
         gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)GLEnum.Repeat);
@@ -47,24 +68,5 @@ public class TexturesManager : ResourcesManager<NewTexture>
         gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, 8);
 
         gl.GenerateMipmap(TextureTarget.Texture2D);
-    }
-}
-
-public readonly struct NewTexture
-{
-    readonly uint handle;
-    readonly GL gl;
-
-    public unsafe NewTexture(GL gl)
-    {
-        this.gl = gl;
-
-        handle = this.gl.GenTexture();
-    }
-
-    public void Bind(TextureUnit textureSlot = TextureUnit.Texture0)
-    {
-        gl.ActiveTexture(textureSlot);
-        gl.BindTexture(TextureTarget.Texture2D, handle);
     }
 }

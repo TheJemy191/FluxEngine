@@ -1,6 +1,7 @@
 ﻿using DefaultEcs;
 using DefaultEcs.System;
 using Flux.Ecs;
+using Flux.MathAddon;
 using Flux.Rendering;
 
 namespace MinecraftClone

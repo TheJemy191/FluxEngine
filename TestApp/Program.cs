@@ -13,6 +13,7 @@ builder.Services
     .AddSilkInput()
     .AddOpenGL<IWindow>()
     .AddImGui()
+    .AddManagers()
     .AddResourceServices()
     .AddBehaviorServices()
     .AddModelEntityBuilder();

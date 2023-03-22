@@ -1,4 +1,5 @@
 ﻿using Flux.Abstraction;
+using Flux.Rendering.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Silk.NET.Core.Contexts;
 using Silk.NET.OpenGL;
@@ -28,6 +29,10 @@ public static class RenderingExtension
     /// </summary>
     public static IGameEngine AddOpenGlRendering(this IGameEngine engine) =>
         engine.AddRenderSystem<OpenGlRenderSystem>();
+    public static IGameEngine AddManagersSystem(this IGameEngine engine) =>
+        engine.AddRenderSystem<ResourcesManagerSystem>();
     public static IServiceCollection AddOpenGL(this IServiceCollection services) =>
         services.AddSingleton(p => p.GetRequiredService<IWindow>().CreateOpenGL());
+    public static IServiceCollection AddManagers(this IServiceCollection services) =>
+        services.AddSingleton<TexturesManager>();
 }

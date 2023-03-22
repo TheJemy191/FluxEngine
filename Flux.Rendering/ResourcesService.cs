@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
+using Flux.Rendering.Resources;
 
 namespace Flux.Rendering;
 
@@ -7,13 +8,15 @@ public class ResourcesService : IDisposable
 {
     readonly GL gl;
     readonly ModelLoaderService modelLoaderService;
+    readonly TexturesManager texturesManager;
     readonly List<IDisposable> resources = new();
 
 
-    public ResourcesService(GL gl, ModelLoaderService modelLoaderService)
+    public ResourcesService(GL gl, ModelLoaderService modelLoaderService, TexturesManager texturesManager)
     {
         this.gl = gl;
         this.modelLoaderService = modelLoaderService;
+        this.texturesManager = texturesManager;
     }
 
     public Shader LoadShader(Path vertexPath, Path fragmentPath)
@@ -22,12 +25,9 @@ public class ResourcesService : IDisposable
         resources.Add(shader);
         return shader;
     }
-    public Texture LoadTexture(Path path)
+    public ResourceHandle<Texture> LoadTexture(Path path)
     {
-        using var image = Image.Load<Rgba32>(ToAssetPath(path));
-
-        var texture = new Texture(gl, image);
-        resources.Add(texture);
+        var texture = texturesManager.Get(path);
         return texture;
     }
 

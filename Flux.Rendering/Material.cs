@@ -1,14 +1,15 @@
-﻿using Silk.NET.OpenGL;
+﻿using Flux.Rendering.Resources;
+using Silk.NET.OpenGL;
 
 namespace Flux.Rendering;
 
 public readonly struct Material : IDisposable
 {
     readonly Shader shader;
-    readonly (string uniformName, Texture texture)[] textures;
+    readonly (string uniformName, ResourceHandle<Texture> texture)[] textures;
     readonly Uniform[] uniforms;
 
-    public Material(Shader shader, (string uniformName, Texture texture)[] textures, Uniform[] uniforms)
+    public Material(Shader shader, (string uniformName, ResourceHandle<Texture> texture)[] textures, Uniform[] uniforms)
     {
         this.shader = shader;
         this.textures = textures;
@@ -22,7 +23,7 @@ public readonly struct Material : IDisposable
         for (var i = 0; i < textures.Length; i++)
         {
             var (uniformName, texture) = textures[i];
-            texture.Bind(TextureUnit.Texture0 + i);
+            texture.Value.Bind(TextureUnit.Texture0 + i);
             shader.SetUniform(uniformName, i);
         }
 
